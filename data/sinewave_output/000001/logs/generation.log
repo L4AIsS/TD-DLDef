@@ -1,0 +1,34 @@
+[ERROR] Fail when generating model with tensorflow
+Traceback (most recent call last):
+  File "/home/liyuanfei/tddldef/src/cases_generation/generate_one.py", line 96, in <module>
+    model = __generate_model(flags.json_path, (flags.weight_minv, flags.weight_maxv))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/src/cases_generation/generate_one.py", line 44, in __generate_model
+    layer, inbound_layers_idx, ouput_shape = __generate_layer(layer_info, weight_range)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/src/cases_generation/generate_one.py", line 17, in __generate_layer
+    layer = get_layer_func(layer_type)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/utils/utils.py", line 82, in get_layer_func
+    return keras.Input if layer_type == 'input_object' else getattr(keras.layers, _str2Str(layer_type))
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'keras.layers' has no attribute 'LocallyConnected1D'
+
+
+[ERROR] Fail when generating model with torch
+Traceback (most recent call last):
+  File "/home/liyuanfei/tddldef/src/cases_generation/generate_one.py", line 96, in <module>
+    model = __generate_model(flags.json_path, (flags.weight_minv, flags.weight_maxv))
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/src/cases_generation/generate_one.py", line 44, in __generate_model
+    layer, inbound_layers_idx, ouput_shape = __generate_layer(layer_info, weight_range)
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/src/cases_generation/generate_one.py", line 17, in __generate_layer
+    layer = get_layer_func(layer_type)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/utils/utils.py", line 82, in get_layer_func
+    return keras.Input if layer_type == 'input_object' else getattr(keras.layers, _str2Str(layer_type))
+                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'keras.layers' has no attribute 'LocallyConnected1D'
+
+
