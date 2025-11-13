@@ -1,0 +1,69 @@
+[ERROR] Crash when training model with tensorflow
+Traceback (most recent call last):
+  File "/home/liyuanfei/tddldef/src/incons_detection/train.py", line 250, in <module>
+    layers_outputs_value = __get_outputs(model, input_objects_names, x, flags.outputs_dir, flags.backend)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/src/incons_detection/train.py", line 55, in __get_outputs
+    layers_outputs = get_layer_output.predict(x)  # 返回的是所有中间层的输出列表
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/tensorflow/python/eager/execute.py", line 59, in quick_execute
+    except TypeError as e:
+tensorflow.python.framework.errors_impl.UnimplementedError: Graph execution error:
+
+Detected at node functional_1/01_separable_conv2D_1/separable_conv2d/depthwise defined at (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+
+  File "<frozen runpy>", line 88, in _run_code
+
+  File "/home/liyuanfei/tddldef/src/incons_detection/train.py", line 250, in <module>
+
+  File "/home/liyuanfei/tddldef/src/incons_detection/train.py", line 55, in __get_outputs
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/backend/tensorflow/trainer.py", line 566, in predict
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/backend/tensorflow/trainer.py", line 260, in one_step_on_data_distributed
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/backend/tensorflow/trainer.py", line 250, in one_step_on_data
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/backend/tensorflow/trainer.py", line 105, in predict_step
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/layers/layer.py", line 936, in __call__
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/ops/operation.py", line 58, in __call__
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/models/functional.py", line 183, in call
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/ops/function.py", line 177, in _run_through_graph
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/models/functional.py", line 648, in call
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/layers/layer.py", line 936, in __call__
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/ops/operation.py", line 58, in __call__
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/utils/traceback_utils.py", line 156, in error_handler
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/layers/convolutional/base_separable_conv.py", line 218, in call
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/ops/nn.py", line 1557, in separable_conv
+
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/backend/tensorflow/nn.py", line 457, in separable_conv
+
+Depthwise convolution on CPU is only supported for NHWC format
+	 [[{{node functional_1/01_separable_conv2D_1/separable_conv2d/depthwise}}]] [Op:__inference_one_step_on_data_distributed_981]
+
+
