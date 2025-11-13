@@ -1,0 +1,27 @@
+﻿编号,链接或描述,缺陷个数,是否被修复,新发现
+18916,https://github.com/keras-team/keras/issues/18916,1,是,否
+,"import keras
+from keras import layers
+import numpy as np
+model = keras.models.Sequential()
+model.add(layers.Conv2D(filters=1, kernel_size=1, dilation_rate=(1.5, 1.5)))
+model.build((None, 28, 28, 1))
+x = np.random.rand(10, 28, 28, 1)
+pred = model.predict(x)
+这段代码在tfv2.0.0不会报错，在tfv2.14会报错，应该要报错的，因为dilation_rate不能是浮点数",1,是,否
+18899,https://github.com/keras-team/keras/issues/18899,1,否,是
+,模型294,1,是,否
+,"layer = keras.layers.UpSampling1D(size=2)
+print(layer.size)
+这段代码中，理论上应该输出2，但是在keras2.3版本中输出了(2, )，导致后续模型训练失败，新版本中已经不存在这个缺陷了",1,是,否
+,"import numpy as np
+    import keras
+
+    y_true = np.array([0., 1., 0.], dtype=np.float32)
+    y_pred = np.array([0.9999999, 0.9999999, 0.0000001], dtype=np.float32)
+
+    res = keras.backend.binary_crossentropy(y_true, y_pred)
+
+    print(""loss = "", res.numpy())
+这段代码在kerasv2.3报错，在kerasv2.10正常运行",1,是,否
+18919,https://github.com/keras-team/keras/issues/18919,1,否,是

@@ -1,0 +1,27 @@
+﻿编号,链接或描述,缺陷个数,是否被修复,新发现
+18866,https://github.com/keras-team/keras/issues/18866,1,是,否
+18889,https://github.com/keras-team/keras/issues/18889,1,是,否
+6806,https://github.com/Theano/Theano/issues/6806,1,否,是
+6805,https://github.com/Theano/Theano/issues/6805,1,否,是
+6801,https://github.com/Theano/Theano/issues/6801,1,否,是
+6802,https://github.com/Theano/Theano/issues/6802,1,否,是
+6803,https://github.com/Theano/Theano/issues/6803,1,否,是
+6804,https://github.com/Theano/Theano/issues/6804,2,否,是
+,"import theano
+    import theano.tensor as T
+    import numpy as np
+
+    def custom_activation(x):
+        return T.nnet.sigmoid(x)
+
+    x = T.vector('x')
+
+    output = custom_activation(x)
+
+    loss = T.sum(output ** 2)
+
+    grad_x = T.grad(loss, x)
+
+    input_data = np.random.random(10).astype('float32')
+ theano.gradient.verify_grad(custom_activation, pt=[input_data])
+上面这段代码报错：TypeError: rng should be a valid instance of numpy.random.RandomState. You may want to use theano.tests.unittest_tools.verify_grad instead of theano.gradient.verify_grad.从这个报错信息来看，他希望我们修改成theano.tests.unittest_tools.verify_grad。但是当修改成theano.tests.unittest_tools.verify_grad这个之后，它报错：AttributeError: module 'theano.tests' has no attribute 'unittest_tools'。属性不存在！",1,是,否

@@ -1,0 +1,34 @@
+﻿编号,链接或描述,缺陷个数,是否被修复,新发现
+,"model = keras.models.load_model('/content/304-tensorflow.h5')
+input = np.random.rand(1, 28, 28, 1)
+model.compile(loss='mean_absolute_error', optimizer='rmsprop')
+history = model.fit(x_train, y_train)
+model.predict(input)
+这个代码在keras2.10中报错了，因为simpleRnn的rate在[0,1)之间，所以1.0的时候报错，但是keras tensorflow2.0没报错，只是显示tensorflow nan。",1,是,否
+62414,https://github.com/tensorflow/tensorflow/issues/62414,1,否,是
+62584,https://github.com/tensorflow/tensorflow/issues/62584,1,否,是
+,"model = keras.models.load_model('/content/tensorflow.h5')
+input = np.random.rand(1, 28, 28, 1)
+model.compile(loss='mean_squared_error', optimizer='adagrad')
+history = model.fit(x_train, y_train)
+model.predict(input)
+这个在keras2.10中报错，因为lstm的rate在[0,1)之间，而这个模型等于1.0.而在keras tensorflow2.0中不报错。",1,是,否
+,"model = keras.models.load_model('/content/tensorflow.h5')
+input = np.random.rand(1, 28, 28, 1)
+model.compile(loss='mean_squared_error', optimizer='adagrad')
+history = model.fit(x_train, y_train)
+model.predict(input)
+这个在keras2.10中报错，因为lstm的rate在[0,1)之间，而这个模型等于1.0.而在keras tensorflow2.0中不报错。",1,是,否
+62592,https://github.com/tensorflow/tensorflow/issues/62592,1,是,否
+18886,https://github.com/keras-team/keras/issues/18886,1,否,是
+,"model = keras.models.load_model('/content/300-tensorflow.h5')
+input = np.random.rand(1, 28, 28, 1)
+model.compile(loss='categorical_crossentropy', optimizer='adadelta')
+
+history = model.fit(x_train, y_train)
+model.predict(input)
+这段代码在keras2.10会报错，因为categorical_crossentropy loss没有检查shape，而在keras2.3 tensorflow没有报错，theano报错了。",1,是,否
+62429,https://github.com/tensorflow/tensorflow/issues/62429,1,否,是
+62431,https://github.com/tensorflow/tensorflow/issues/62431,1,否,是
+62435,https://github.com/tensorflow/tensorflow/issues/62435,3,否,是
+62436,https://github.com/tensorflow/tensorflow/issues/62436,1,否,是

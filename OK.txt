@@ -1,0 +1,3 @@
+tensorflow:
+ Keras3.0 下不支持 huber_loss，kullback_leibler_divergence loss函数；而 torch 支持
+ tensorflow 不支持 Depthwise convolution on CPU is only supported for NHWC format；而 torch 支持
