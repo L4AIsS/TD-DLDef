@@ -1,0 +1,11 @@
+[ERROR] Crash when calculate localization map between tensorflow and torch
+Traceback (most recent call last):
+  File "/home/liyuanfei/tddldef/src/incons_detection/comparator.py", line 54, in compare
+    outputs_map = self.__layers_outputs_gradients_delta(model_structure, outputs1, outputs2, grads1, grads2, loss_grads_delta)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/tddldef/src/incons_detection/comparator.py", line 126, in __layers_outputs_gradients_delta
+    g1, g2 = grads1[layer_name], grads2[layer_name]
+             ~~~~~~^^^^^^^^^^^^
+KeyError: '00_input_object'
+
+
