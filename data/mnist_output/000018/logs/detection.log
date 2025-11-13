@@ -1,0 +1,31 @@
+[ERROR] Crash when training model with tensorflow
+Traceback (most recent call last):
+  File "/home/liyuanfei/tddldef/src/incons_detection/train.py", line 254, in <module>
+    __get_loss(model, ins, ins_value, flags.loss_path, flags.loss, flags.backend)
+  File "/home/liyuanfei/tddldef/src/incons_detection/train.py", line 74, in __get_loss
+    loss = model.compiled_loss(
+           ^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/backend/tensorflow/trainer.py", line 675, in compiled_loss
+    return self.compute_loss(
+           ^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/trainers/trainer.py", line 351, in compute_loss
+    loss = self._compile_loss(y, y_pred, sample_weight)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/trainers/compile_utils.py", line 690, in __call__
+    return self.call(y_true, y_pred, sample_weight)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/trainers/compile_utils.py", line 696, in call
+    self.build(y_true, y_pred)
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/trainers/compile_utils.py", line 657, in build
+    self._build_nested(y_true, y_pred, loss, output_names, ())
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/trainers/compile_utils.py", line 470, in _build_nested
+    resolved_loss = get_loss(_loss, y_true, y_pred)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/trainers/compile_utils.py", line 103, in get_loss
+    loss_obj = losses_module.get(identifier)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/liyuanfei/miniconda3/envs/tensorflow/lib/python3.12/site-packages/keras/src/losses/__init__.py", line 207, in get
+    raise ValueError(f"Could not interpret loss identifier: {identifier}")
+ValueError: Could not interpret loss identifier: huber_loss
+
+
