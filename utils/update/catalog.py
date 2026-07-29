@@ -162,12 +162,14 @@ class LayerCatalog:
                 "kernel": _normal(rng, (in_features, units)),
                 "bias": np.zeros((units,), dtype=np.float64),
             }
+            activation = str(rng.choice(["linear", "relu", "tanh"]))
             params = {
                 "units": units,
                 "use_bias": True,
-                "activation": str(rng.choice(["linear", "relu", "tanh"])),
+                "activation": activation,
             }
-            out.append(self._candidate(graph, "dense", (ref,), output, params=params, weights=weights))
+            tags = {"nondifferentiable"} if activation == "relu" else set()
+            out.append(self._candidate(graph, "dense", (ref,), output, params=params, weights=weights, tags=tags))
 
         if spec.ndim > 2 and "flatten" in self.enabled_ops:
             output = TensorSpec((spec.shape[0], prod(spec.shape[1:])), spec.dtype, "vector")
@@ -215,8 +217,21 @@ class LayerCatalog:
                     "recurrent_kernel": _normal(rng, (units, units)),
                     "bias": np.zeros((units,), dtype=np.float64),
                 }
-                params = {"units": units, "activation": str(rng.choice(["tanh", "relu"])), "return_sequences": True, "recurrent_dropout": 0.0}
-                out.append(self._candidate(graph, "simple_rnn", (ref,), output, params=params, weights=weights, tags={"stateful_formula"}))
+                activation = str(rng.choice(["tanh", "relu"]))
+                params = {
+                    "units": units,
+                    "activation": activation,
+                    "return_sequences": True,
+                    "recurrent_dropout": 0.0,
+                    "stateful": False,
+                }
+                # This implementation resets the hidden state for every execution and is
+                # therefore recurrent but not stateful across calls.  Only ReLU recurrence
+                # receives the nondifferentiability tag.
+                tags = {"recurrent"}
+                if activation == "relu":
+                    tags.add("nondifferentiable")
+                out.append(self._candidate(graph, "simple_rnn", (ref,), output, params=params, weights=weights, tags=tags))
             if "attention" in self.enabled_ops and features <= 64:
                 weights = {
                     "wq": _normal(rng, (features, features)),

@@ -55,23 +55,36 @@ class TraceEntry:
     std: float | None
     nan_count: int
     inf_count: int
+    smallest_nonzero_abs: float | None
+    largest_abs: float | None
     digest: str
     branch_signature: tuple[int, int, int]
 
     @classmethod
     def from_array(cls, node_id: str, op: str, value: np.ndarray) -> "TraceEntry":
         arr = np.asarray(value)
-        finite = arr[np.isfinite(arr)] if np.issubdtype(arr.dtype, np.number) else np.array([])
+        if np.issubdtype(arr.dtype, np.number):
+            raw_finite = arr[np.isfinite(arr)]
+            if np.issubdtype(arr.dtype, np.complexfloating):
+                finite = np.abs(raw_finite).astype(np.float64, copy=False)
+            else:
+                finite = raw_finite.astype(np.float64, copy=False)
+        else:
+            finite = np.array([], dtype=np.float64)
         if finite.size:
             minimum = float(np.min(finite))
             maximum = float(np.max(finite))
-            mean = float(np.mean(finite))
-            std = float(np.std(finite))
+            mean = float(np.mean(finite, dtype=np.float64))
+            std = float(np.std(finite, dtype=np.float64))
         else:
             minimum = maximum = mean = std = None
         if np.issubdtype(arr.dtype, np.number):
             nan_count = int(np.isnan(arr).sum())
             inf_count = int(np.isinf(arr).sum())
+            finite_abs = np.abs(finite.astype(np.float64, copy=False))
+            largest_abs = float(np.max(finite_abs)) if finite_abs.size else None
+            nonzero_abs = finite_abs[finite_abs > 0.0]
+            smallest_nonzero_abs = float(np.min(nonzero_abs)) if nonzero_abs.size else None
             branch_signature = (
                 int((arr < 0).sum()),
                 int((arr == 0).sum()),
@@ -79,6 +92,7 @@ class TraceEntry:
             )
         else:
             nan_count = inf_count = 0
+            smallest_nonzero_abs = largest_abs = None
             branch_signature = (0, 0, int(arr.size))
         return cls(
             node_id=node_id,
@@ -91,6 +105,8 @@ class TraceEntry:
             std=std,
             nan_count=nan_count,
             inf_count=inf_count,
+            smallest_nonzero_abs=smallest_nonzero_abs,
+            largest_abs=largest_abs,
             digest=array_digest(arr),
             branch_signature=branch_signature,
         )
@@ -107,6 +123,8 @@ class TraceEntry:
             "std": self.std,
             "nan_count": self.nan_count,
             "inf_count": self.inf_count,
+            "smallest_nonzero_abs": self.smallest_nonzero_abs,
+            "largest_abs": self.largest_abs,
             "digest": self.digest,
             "branch_signature": list(self.branch_signature),
         }
